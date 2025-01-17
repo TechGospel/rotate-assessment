@@ -14,7 +14,7 @@ body {
 }
 
 .sidebar {
-  @apply lg:w-[255px]
+  @apply lg:w-[300px]
 }
 
 a{
