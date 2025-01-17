@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-jost);
+  /* background-color: #F7F8FD; */
+  color: black;
+  font-size: 16px;
+}
+
+.page-layout {
+  @apply max-w-[1118px] mx-auto py-0 md:py-[100px] md:px-2 
+}
+
+.sidebar {
+  @apply lg:w-[255px]
+}
+
+a{
+ @apply text-sm underline text-[#4661E6]
+}
+
+.no-scroll{
+  @apply overflow-hidden md:overflow-scroll
+}
