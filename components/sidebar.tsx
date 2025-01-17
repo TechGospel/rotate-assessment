@@ -1,4 +1,4 @@
-import useFeature from '@/app/hooks/useHooks';
+import {useFeature} from '@/app/hooks/useHooks';
 import Badge from '@/components/ui/badge';
 import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react';
 import { List, X } from '@phosphor-icons/react';
@@ -8,11 +8,8 @@ import { useEffect, useState } from 'react';
 
 export default function Sidebar() {
 	const {
-		suggestions,
 		activeSuggestion,
-		activeSort,
 		handleFilterSuggestions,
-		handleSortSuggestions,
 	  } = useFeature();
 
 	const FILTERS = ['All', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature'] as const
@@ -28,7 +25,9 @@ export default function Sidebar() {
 		<div
 			className={`flex flex-row lg:flex-col gap-6 items-stretch sidebar relative `}
 		>
-			<HStack className='lg:h-[137px] bg-custom-radial p-[24px] w-full md:rounded-[10px] flex-1 lg:flex-none overflow-visible'>
+			<HStack className='lg:h-[137px] bg-custom-radial p-[24px] w-full md:rounded-[10px] flex-1 lg:flex-none overflow-visible custom-class'
+			
+			>
 				<VStack
 					justifyContent={'end'}
 					alignItems={'start'}

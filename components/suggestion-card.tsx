@@ -61,7 +61,7 @@ export default function SuggestionCard(props:SuggestionsCardProps) {
 						weight='bold'
 						color={theme === 'light' ? '#4661E6' : '#fff'}
 					/>
-					112
+					{props?.upvotes}
 				</VStack>
 			</VStack>
 			<VStack flex={1} alignItems={'start'} gap={0}>
@@ -134,7 +134,7 @@ export default function SuggestionCard(props:SuggestionsCardProps) {
 						_dark: '#fff',
 					}}
 				>
-					<ChatCircle weight='fill' color='#CDD2EE' /> 2
+					<ChatCircle weight='fill' color='#CDD2EE' /> {props?.comments}
 				</HStack>
 			</VStack>
 		</HStack>

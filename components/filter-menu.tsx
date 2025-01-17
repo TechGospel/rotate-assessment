@@ -1,3 +1,4 @@
+import { useFeature } from '@/app/hooks/useHooks';
 import Menu from '@/components/ui/menu';
 import { HStack } from '@chakra-ui/react';
 import { CaretDown } from '@phosphor-icons/react';
@@ -10,12 +11,18 @@ const options = [
 	{ label: 'Least Comments', value: 'least-comments' },
 ];
 export default function FilterMenu() {
+	const {
+			handleSortSuggestions,
+		  } = useFeature();
 	const [selected, setSelected] = useState<(typeof options)[0] | undefined>(
 		options[0]
 	);
 	function handleSelect(v: string) {
 		setSelected(options.find((opt) => opt.value === v));
+		handleSortSuggestions(selected?.value||"most-upvotes")
 	}
+
+	
 	return (
 		<Menu
 			options={options}

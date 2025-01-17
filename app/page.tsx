@@ -8,7 +8,7 @@ import FilterMenu from '@/components/filter-menu';
 import { VStack } from '@chakra-ui/react';
 import { Plus } from '@phosphor-icons/react';
 import Image from 'next/image';
-import useFeature from './hooks/useHooks';
+import {useFeature} from './hooks/useHooks';
 
 export default function Home() {
 	const{suggestions}= useFeature()

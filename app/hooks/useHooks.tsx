@@ -1,4 +1,5 @@
-import { useState } from 'react';
+'use client';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 const SUGGESTIONS = [
   {
@@ -49,22 +50,29 @@ const SUGGESTIONS = [
 
 const FEATURES = ['All', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature'];
 
-const useFeature = () => {
+type FeatureContextType = {
+  features: string[];
+  suggestions: typeof SUGGESTIONS;
+  handleFilterSuggestions: (feature: string) => void;
+  handleSortSuggestions: (sortOption: string) => void;
+  activeSuggestion: string;
+  sortBy: string;
+};
+
+const FeatureContext = createContext<FeatureContextType | undefined>(undefined);
+
+export const FeatureProvider = ({ children }: { children: ReactNode }) => {
   const [activeSuggestion, setActiveSuggestion] = useState('All');
   const [suggestions, setSuggestions] = useState(SUGGESTIONS);
   const [sortBy, setSortBy] = useState<string>('upvotes');
 
   const handleFilterSuggestions = (feature: string) => {
-    console.log("filter:", feature)
     setActiveSuggestion(feature);
     if (feature === 'All') {
       setSuggestions(SUGGESTIONS);
       return;
     }
-    setSuggestions(
-      SUGGESTIONS.filter((suggestion) => suggestion.tag === feature)
-    );
-    console.log("suggestion:", suggestions)
+    setSuggestions(SUGGESTIONS.filter((suggestion) => suggestion.tag === feature));
   };
 
   const handleSortSuggestions = (sortOption: string) => {
@@ -72,25 +80,17 @@ const useFeature = () => {
     let sortedSuggestions = [...suggestions];
 
     switch (sortOption) {
-      case 'upvotes':
-        sortedSuggestions = sortedSuggestions.sort(
-          (a, b) => b.upvotes - a.upvotes
-        );
+      case 'most-upvotes':
+        sortedSuggestions.sort((a, b) => b.upvotes - a.upvotes);
         break;
-      case 'downvotes':
-        sortedSuggestions = sortedSuggestions.sort(
-          (a, b) => a.upvotes - b.upvotes
-        );
+      case 'least-upvotes':
+        sortedSuggestions.sort((a, b) => a.upvotes - b.upvotes);
         break;
-      case 'comments':
-        sortedSuggestions = sortedSuggestions.sort(
-          (a, b) => b.comments - a.comments
-        );
+      case 'most-comments':
+        sortedSuggestions.sort((a, b) => b.comments - a.comments);
         break;
-      case 'least_comments':
-        sortedSuggestions = sortedSuggestions.sort(
-          (a, b) => a.comments - b.comments
-        );
+      case 'least-comments':
+        sortedSuggestions.sort((a, b) => a.comments - b.comments);
         break;
       default:
         break;
@@ -99,15 +99,26 @@ const useFeature = () => {
     setSuggestions(sortedSuggestions);
   };
 
-  return {
-    features: FEATURES,
-    suggestions,
-    handleFilterSuggestions,
-    handleSortSuggestions,
-    activeSuggestion,
-    sortBy,
-    activeSort: sortBy,
-  };
+  return (
+    <FeatureContext.Provider
+      value={{
+        features: FEATURES,
+        suggestions,
+        handleFilterSuggestions,
+        handleSortSuggestions,
+        activeSuggestion,
+        sortBy,
+      }}
+    >
+      {children}
+    </FeatureContext.Provider>
+  );
 };
 
-export default useFeature;
+export const useFeature = () => {
+  const context = useContext(FeatureContext);
+  if (!context) {
+    throw new Error('useFeature must be used within a FeatureProvider');
+  }
+  return context;
+};

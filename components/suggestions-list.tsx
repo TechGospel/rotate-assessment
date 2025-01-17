@@ -1,6 +1,6 @@
 import SuggestionCard from '@/components/suggestion-card';
 import { VStack } from '@chakra-ui/react';
-import useFeature from '@/app/hooks/useHooks'
+import {useFeature} from '@/app/hooks/useHooks'
 
 
 

@@ -24,3 +24,28 @@ a{
 .no-scroll{
   @apply overflow-hidden md:overflow-scroll
 }
+
+.custom-class {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.25rem; /* xl equivalent */
+  position: relative;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.custom-class:hover {
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

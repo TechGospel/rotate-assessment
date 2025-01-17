@@ -3,6 +3,8 @@ import { Box } from '@chakra-ui/react';
 import type { Metadata } from 'next';
 import { Jost } from 'next/font/google';
 import './globals.css';
+import { FeatureProvider } from './hooks/useHooks';
+
 
 const jost = Jost({
 	variable: '--font-jost',
@@ -23,18 +25,21 @@ export default function RootLayout({
 		<html lang='en' suppressHydrationWarning>
 			<body className={`${jost.variable} antialiased light`}>
 				<Provider>
-					<Box
-						className='w-full'
-						bg={{ base: '#F7F8FD', _dark: '#000' }}
-					>
-						<div
-							id='pageLayout'
-							className='flex flex-col lg:flex-row md:gap-[30px] page-layout'
+					<FeatureProvider>
+						<Box
+							className='w-full'
+							bg={{ base: '#F7F8FD', _dark: '#000' }}
 						>
-							{children}
-						</div>
-					</Box>
+							<div
+								id='pageLayout'
+								className='flex flex-col lg:flex-row md:gap-[30px] page-layout'
+							>
+								{children}
+							</div>
+						</Box>
+					</FeatureProvider>
 				</Provider>
+				
 			</body>
 		</html>
 	);

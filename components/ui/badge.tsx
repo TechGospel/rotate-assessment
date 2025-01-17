@@ -19,8 +19,8 @@ export default function Badge({ active, className, ...props }: IBadge) {
 				base: 'transparent',
 				_dark: '1px solid #666',
 			}}
-			py={'5px'}
-			px={'16px'}
+			py={3}
+			px={6}
 			fontWeight={'semibold'}
 			fontSize={'13px'}
 			borderRadius={'10px'}
