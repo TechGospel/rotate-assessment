@@ -10,7 +10,7 @@ body {
 }
 
 .page-layout {
-  @apply max-w-[1118px] mx-auto py-0 md:py-[100px] md:px-2 
+  @apply max-w-[1200px] mx-auto py-0 md:py-[100px] md:px-2 
 }
 
 .sidebar {
