@@ -5,10 +5,11 @@ import Sidebar from '@/components/sidebar';
 import SuggestionsList from '@/components/suggestions-list';
 import { Button } from '@/components/ui/button';
 import FilterMenu from '@/components/filter-menu';
-import { VStack } from '@chakra-ui/react';
+import { VStack, Box } from '@chakra-ui/react';
 import { Plus } from '@phosphor-icons/react';
 import Image from 'next/image';
 import {useFeature} from './hooks/useHooks';
+import EmptyState from '@/components/ui/empty';
 
 export default function Home() {
 	const{suggestions}= useFeature()
@@ -35,7 +36,8 @@ export default function Home() {
 					>
 						<FilterMenu />
 					</PageHeader>
-					<SuggestionsList />
+					<SuggestionsList  />
+					<Box mt={4}>{suggestions.length === 0 && <EmptyState />}</Box>
 				</VStack>
 			</Main>
 		</>
