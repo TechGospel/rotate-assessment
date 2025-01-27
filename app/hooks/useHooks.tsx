@@ -118,7 +118,7 @@ export const FeatureProvider = ({ children }: { children: ReactNode }) => {
 export const useFeature = () => {
   const context = useContext(FeatureContext);
   if (!context) {
-    throw new Error('useFeature must be used within a FeatureProvider');
+    throw new Error('This hook can only be used within FeatureProvider');
   }
   return context;
 };
