@@ -2,7 +2,7 @@ import { useFeature } from '@/app/hooks/useHooks';
 import Menu from '@/components/ui/menu';
 import { HStack } from '@chakra-ui/react';
 import { CaretDown } from '@phosphor-icons/react';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 const options = [
 	{ label: 'Most Upvotes', value: 'most-upvotes' },
@@ -11,25 +11,31 @@ const options = [
 	{ label: 'Least Comments', value: 'least-comments' },
 ];
 export default function FilterMenu() {
-	const {
-			handleSortSuggestions,
-		  } = useFeature();
-	const [selected, setSelected] = useState<(typeof options)[0] | undefined>(
-		options[0]
+	const { handleSortSuggestions } = useFeature();
+	
+	const defaultOption = useMemo(() => options[0], []);
+	const [selected, setSelected] = useState<typeof options[number]>(defaultOption);
+
+	const handleSelect = useCallback(
+		(selectedOption: { value: string }) => {
+			const newSelected = options.find((opt) => opt.value === selectedOption.value);
+			if (newSelected && newSelected.value !== selected.value) {
+				setSelected(newSelected);
+				handleSortSuggestions(newSelected.value);
+			}
+		},
+		[selected, handleSortSuggestions]
 	);
-	function handleSelect(v: string) {
-		setSelected(options.find((opt) => opt.value === v));
-		handleSortSuggestions(selected?.value||"most-upvotes")
-	}
 
 	
 	return (
 		<Menu
 			options={options}
-			onSelect={(v) => handleSelect(v.value)}
+			onSelect={handleSelect}
 			selected={selected}
 		>
 			<HStack
+				aria-label="Sort options"
 				className='text-sm'
 				transition='opacity 200ms ease-in-out'
 				_hover={{ opacity: 0.4 }}
